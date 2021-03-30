@@ -1,11 +1,8 @@
 package com.sean.petinfo
 
-import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.sean.petinfo.api.PetFamilyListInfo
@@ -20,7 +17,8 @@ class PetListAdapter : BaseQuickAdapter<PetFamilyListInfo, BaseViewHolder>(R.lay
     override fun convert(helper: BaseViewHolder?, item: PetFamilyListInfo?) {
         val imgPet = helper?.getView<ImageView>(R.id.img_pet)
         imgPet?.let {
-            Glide.with(it.context).load(item?.coverUrl).transform(CenterCrop(), CircleImageViewTransformation(12f)).into(imgPet)
+            Glide.with(it.context).load(item?.coverUrl)
+                .transform(CenterCrop(), CircleImageViewTransformation(12f)).into(imgPet)
         }
     }
 }
