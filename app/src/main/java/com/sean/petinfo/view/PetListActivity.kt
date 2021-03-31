@@ -1,7 +1,8 @@
-package com.sean.petinfo
+package com.sean.petinfo.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.sean.petinfo.R
 
 /**
  * Author: Sean-Shen
