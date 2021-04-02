@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sean.petinfo.api.NetApi
 import com.sean.petinfo.api.PetFamilyListInfo
+import com.sean.petinfo.api.PetListInfo
 import com.sean.petinfo.database.PetDao
 import com.sean.petinfo.database.PetDb
 import com.sean.petinfo.database.PetInfoEntity
@@ -30,8 +33,16 @@ class PetListViewModel(context: Context) : ViewModel() {
         myDbDao = PetDb.getInstance(context)?.PetDao()
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
-                myDbDao?.getAllData()?.also { _petList.postValue(it)}
+                myDbDao?.getAllData()?.also { _petList.postValue(it) }
             }
+        }
+    }
+
+    fun loadDataFromServer(loadSuccess: (PetListInfo) -> Unit,
+                           loadError: (Int) -> Unit,
+                           loadFailure: (Throwable) -> Unit) {
+        viewModelScope.launch {        //可以自动取消协程
+            NetApi.getPetList(loadSuccess, loadError, loadFailure)
         }
     }
 
@@ -70,5 +81,9 @@ class PetListViewModel(context: Context) : ViewModel() {
                 myDbDao?.deleteAll()
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

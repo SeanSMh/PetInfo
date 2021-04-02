@@ -1,15 +1,15 @@
 package com.sean.petinfo.api
 
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
@@ -40,7 +40,7 @@ object NetApi {
      */
     suspend fun getPetList(
         loadSuccess: (PetListInfo) -> Unit,
-        loadError: () -> Unit,
+        loadError: (Int) -> Unit,
         loadFailure: (Throwable) -> Unit
     ) {
 
@@ -50,7 +50,29 @@ object NetApi {
             .put("pageSize", 30)
         val requestBody = RequestBody.create(mediaType, requestJson.toString())
 
-        netApiService?.getPetList(requestBody)?.enqueue(object : Callback<PetListInfo> {
+        //结合suspend关键字
+        try {
+            val petListInfo = withContext(Dispatchers.IO) {
+                return@withContext netApiService?.getPetList2(requestBody)
+            }
+            //成功的时候处理逻辑
+            if (petListInfo != null) {
+                withContext(Dispatchers.Main) {   //主线程处理数据
+                    loadSuccess.invoke(petListInfo)
+                }
+            }
+        } catch (e: Exception) {
+            //失败的时候处理逻辑
+            when(e) {
+                is HttpException -> {
+                    withContext(Dispatchers.Main) {
+                        loadError.invoke(e.code())
+                    }
+                }
+            }
+        }
+
+        /*netApiService?.getPetList(requestBody)?.enqueue(object : Callback<PetListInfo> {
             override fun onResponse(call: Call<PetListInfo>, response: Response<PetListInfo>) {
                 Log.e("Sean--->", "成功")
                 response.body()?.let {
@@ -63,6 +85,6 @@ object NetApi {
                 loadFailure.invoke(t)
             }
 
-        })
+        })*/
     }
 }

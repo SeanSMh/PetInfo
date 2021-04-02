@@ -5,7 +5,7 @@ import androidx.room.*
 /**
  * Author: Sean-Shen
  * Date: 2021/3/31
- * Desc: Dao类
+ * Desc: Dao类，操作数据库
  */
 @Dao
 interface PetDao {

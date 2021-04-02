@@ -15,7 +15,6 @@ import com.sean.petinfo.viewmodel.PetViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        petViewModel = ViewModelProvider(this, PetViewModelFactory(this)).get(PetListViewModel::class.java)
+        petViewModel =
+            ViewModelProvider(this, PetViewModelFactory(this)).get(PetListViewModel::class.java)
         petViewModel.run {
             petList.observe(this@MainActivity) {
                 petAdapter.addData(it)
@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.IO) {
-                NetApi.getPetList(::loadSuccess, ::loadError, ::loadFailure)
-            }
-        }
+        /*CoroutineScope(Dispatchers.Main).launch {  //此时，好像需要在onCreate()方法中取消协程
+            NetApi.getPetList(::loadSuccess, ::loadError, ::loadFailure)
+        }*/
+
+        petViewModel.loadDataFromServer(::loadSuccess, ::loadError, ::loadFailure)
     }
 
     /**
@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadError() {
-
+    private fun loadError(errorCode: Int) {
+        Log.e("Sean--->", "errorCode: $errorCode")
     }
 
     private fun loadFailure(t: Throwable) {

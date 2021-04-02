@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 /**
  * Author: Sean-Shen
  * Date: 2021/3/31
- * Desc:
+ * Desc: 数据库表
  */
 @Entity(tableName = "petInfo")
 class PetInfoEntity {

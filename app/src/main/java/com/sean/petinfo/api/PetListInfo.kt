@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Author: Sean-Shen
  * Date: 2021/3/4
- * Desc:
+ * Desc: 网络请求数据类
  */
 data class PetListInfo(
     @SerializedName("statusCode") val statusCode: String? = null,
