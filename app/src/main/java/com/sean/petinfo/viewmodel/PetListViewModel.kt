@@ -58,11 +58,17 @@ class PetListViewModel(context: Context) : ViewModel() {
         }
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
-                newPetList.forEach{
-                    myDbDao?.update(it)  //入库
-                }
+                myDbDao?.saveToDb(newPetList)
             }
         }
         _petList.postValue(newPetList)
+    }
+
+    fun deleteAllData() {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO) {
+                myDbDao?.deleteAll()
+            }
+        }
     }
 }

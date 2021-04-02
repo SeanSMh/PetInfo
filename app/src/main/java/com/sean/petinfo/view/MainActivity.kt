@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         initViewModel()
         loadData()
+        //petViewModel.deleteAllData()
     }
 
     private fun initRecyclerView() {

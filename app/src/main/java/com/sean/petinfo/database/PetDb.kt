@@ -8,7 +8,7 @@ import kotlin.math.sin
 /**
  * Author: Sean-Shen
  * Date: 2021/3/31
- * Desc:
+ * Desc: 数据库
  */
 @Database(entities = [PetInfoEntity::class], version = 1)
 abstract class PetDb : RoomDatabase() {
