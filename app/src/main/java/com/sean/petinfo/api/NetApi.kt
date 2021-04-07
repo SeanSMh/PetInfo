@@ -3,7 +3,6 @@ package com.sean.petinfo.api
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -63,7 +62,7 @@ object NetApi {
             }
         } catch (e: Exception) {
             //失败的时候处理逻辑
-            when(e) {
+            when (e) {
                 is HttpException -> {
                     withContext(Dispatchers.Main) {
                         loadError.invoke(e.code())
@@ -86,5 +85,31 @@ object NetApi {
             }
 
         })*/
+    }
+
+    suspend fun getPetInfo(
+        petId: String,
+        loadSuccess: (PetInfoResult) -> Unit,
+        loadError: (Int) -> Unit,
+        loadFailure: (Throwable) -> Unit
+    ) {
+        try {
+            val singlePetInfo = withContext(Dispatchers.IO) {
+                return@withContext netApiService?.getPetDetail(petId)
+            }
+            singlePetInfo?.result?.let {
+                withContext(Dispatchers.Main) {
+                    loadSuccess.invoke(it)
+                }
+            }
+        } catch (e: Exception) {
+            when (e) {
+                is HttpException -> {
+                    withContext(Dispatchers.Main) {
+                        loadError.invoke(e.code())
+                    }
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sean.petinfo.api.NetApi
 import com.sean.petinfo.api.PetFamilyListInfo
+import com.sean.petinfo.api.PetInfoResult
 import com.sean.petinfo.api.PetListInfo
 import com.sean.petinfo.database.PetDao
 import com.sean.petinfo.database.PetDb
@@ -19,7 +20,7 @@ import kotlinx.coroutines.withContext
 /**
  * Author: Sean-Shen
  * Date: 2021/3/30
- * Desc:
+ * Desc: viewModel
  */
 class PetListViewModel(context: Context) : ViewModel() {
 
@@ -31,18 +32,37 @@ class PetListViewModel(context: Context) : ViewModel() {
 
     init {
         myDbDao = PetDb.getInstance(context)?.PetDao()
-        CoroutineScope(Dispatchers.Main).launch {
+    }
+
+    /**
+     * 加载宠物列表
+     */
+    fun loadPetListFromServer(
+        loadSuccess: (PetListInfo) -> Unit,
+        loadError: (Int) -> Unit,
+        loadFailure: (Throwable) -> Unit
+    ) {
+        viewModelScope.launch {        //可以自动取消协程
+            //1、先从数据库中加载
             withContext(Dispatchers.IO) {
                 myDbDao?.getAllData()?.also { _petList.postValue(it) }
             }
+            //2、再从网络加载
+            NetApi.getPetList(loadSuccess, loadError, loadFailure)
         }
     }
 
-    fun loadDataFromServer(loadSuccess: (PetListInfo) -> Unit,
-                           loadError: (Int) -> Unit,
-                           loadFailure: (Throwable) -> Unit) {
-        viewModelScope.launch {        //可以自动取消协程
-            NetApi.getPetList(loadSuccess, loadError, loadFailure)
+    /**
+     * 加载单个宠物信息
+     */
+    fun loadPetInfoFromServer(
+        petId: String,
+        loadSuccess: (PetInfoResult) -> Unit,
+        loadError: (Int) -> Unit,
+        loadFailure: (Throwable) -> Unit
+    ) {
+        viewModelScope.launch {
+            NetApi.getPetInfo(petId, loadSuccess, loadError, loadFailure)
         }
     }
 

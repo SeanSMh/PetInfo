@@ -1,5 +1,7 @@
 package com.sean.petinfo.database
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 /**
@@ -27,6 +29,9 @@ interface PetDao {
 
     @Query("SELECT * FROM petInfo")   //查询所有数据
     fun getAllData(): MutableList<PetInfoEntity>
+
+    @Query("SELECT * FROM petinfo")        //查询所有数据，返回liveData类型数据
+    fun queryAll(): LiveData<MutableList<PetInfoEntity>>
 
     @Query("SELECT * FROM petInfo WHERE id = :id")    //查询特定数据
     fun query(id: Int): MutableList<PetInfoEntity>

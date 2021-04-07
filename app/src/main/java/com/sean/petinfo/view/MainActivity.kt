@@ -2,19 +2,15 @@ package com.sean.petinfo.view
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sean.petinfo.R
-import com.sean.petinfo.api.NetApi
 import com.sean.petinfo.api.PetListInfo
+import com.sean.petinfo.database.PetInfoEntity
 import com.sean.petinfo.viewmodel.PetListViewModel
 import com.sean.petinfo.viewmodel.PetViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +36,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         petAdapter.setOnItemClickListener { adapter, view, position ->
-            Toast.makeText(this, "点击子项", Toast.LENGTH_SHORT).show()
+            val petItem = adapter.getItem(position) as? PetInfoEntity
+            petItem?.let {
+                //Toast.makeText(this, "点击子项${petItem.petName} + ${petItem.petEngName}", Toast.LENGTH_SHORT).show()
+                PetInfoActivity.startActivity(this, it.petName, it.petId)
+            }
         }
     }
 
@@ -55,11 +55,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
+        //当前页面加载数据
         /*CoroutineScope(Dispatchers.Main).launch {  //此时，好像需要在onCreate()方法中取消协程
             NetApi.getPetList(::loadSuccess, ::loadError, ::loadFailure)
         }*/
 
-        petViewModel.loadDataFromServer(::loadSuccess, ::loadError, ::loadFailure)
+        //从viewModel加载数据
+        petViewModel.loadPetListFromServer(::loadSuccess, ::loadError, ::loadFailure)
     }
 
     /**
