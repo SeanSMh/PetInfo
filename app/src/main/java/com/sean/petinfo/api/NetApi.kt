@@ -87,6 +87,9 @@ object NetApi {
         })*/
     }
 
+    /**
+     * 获取宠物详细信息
+     */
     suspend fun getPetInfo(
         petId: String,
         loadSuccess: (PetInfoResult) -> Unit,

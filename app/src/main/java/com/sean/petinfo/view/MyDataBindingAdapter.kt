@@ -7,11 +7,11 @@ import com.bumptech.glide.Glide
 /**
  * Author: Sean-Shen
  * Date: 2021/4/7
- * Desc:
+ * Desc: 用于结合dataBinding加载图片
  */
 class MyDataBindingAdapter {
     companion object {
-        @BindingAdapter("app:imgSrc")
+        @BindingAdapter("imgSrc")
         @JvmStatic
         fun imageSrc(img: ImageView, url: String?) {
             /*if (url.isNullOrBlank()) {
