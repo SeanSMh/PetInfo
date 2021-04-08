@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="catInfo"
             type="com.sean.petinfo.view.CatInfoEntity" />
@@ -19,25 +20,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:text="@{catInfo.catName}"
             android:textColor="#212121"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="狸花猫"/>
+            tools:text="狸花猫" />
 
         <TextView
             android:id="@+id/tv_cat_des"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:padding="5dp"
+            android:text="@{catInfo.catDes}"
             android:textColor="#999999"
             android:textSize="15sp"
-            android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cat_name"
-            tools:text="狸花猫狸花猫狸花猫狸花猫"/>
+            tools:text="狸花猫狸花猫狸花猫狸花猫" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

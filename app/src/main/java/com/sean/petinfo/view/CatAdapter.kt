@@ -14,22 +14,21 @@ import com.sean.petinfo.databinding.ItemCatBinding
  * Date: 2021/4/8
  * Desc: adapter of CatListActivity
  */
-class CatAdapter : BaseQuickAdapter<CatInfoEntity, CatAdapter.MyHolder>(R.layout.item_cat) {
+class CatAdapter : BaseQuickAdapter<CatInfoEntity, BaseViewHolder>(R.layout.item_cat) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val dBing = DataBindingUtil.inflate<ItemCatBinding>(
             LayoutInflater.from(parent.context),
             this.mLayoutResId,
-            null,
+            parent,
             false
         )
-        return MyHolder(dBing.root)
+        return BaseViewHolder(dBing.root)
     }
 
-    override fun convert(helper: MyHolder?, item: CatInfoEntity?) {
+    override fun convert(helper: BaseViewHolder?, item: CatInfoEntity?) {
         val dataBiding = helper?.itemView?.let { DataBindingUtil.getBinding<ItemCatBinding>(it) }
         dataBiding?.catInfo = item
     }
 
-    inner class MyHolder(myView: View) : BaseViewHolder(myView)
 }
