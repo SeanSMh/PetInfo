@@ -7,9 +7,11 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.sean.petinfo.R
 import com.sean.petinfo.api.PetInfoResult
+import com.sean.petinfo.databinding.ActivityPetInfoBinding
 import com.sean.petinfo.viewmodel.PetListViewModel
 import com.sean.petinfo.viewmodel.PetViewModelFactory
 
@@ -24,6 +26,7 @@ class PetInfoActivity : AppCompatActivity(){
     private var petId: String? = null
 
     private lateinit var petViewModel: PetListViewModel
+    private lateinit var dataBinding: ActivityPetInfoBinding
 
     companion object {
         private const val PET_NAME = "pet_name"
@@ -38,7 +41,6 @@ class PetInfoActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info_list)
         initView()
         initArgs()
         initVieModel()
@@ -46,6 +48,7 @@ class PetInfoActivity : AppCompatActivity(){
     }
 
     private fun initView() {
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_pet_info)
         toolBar = findViewById(R.id.tool_bar)
     }
 
@@ -64,7 +67,7 @@ class PetInfoActivity : AppCompatActivity(){
     }
 
     private fun loadSuccess(entity: PetInfoResult) {
-        Log.e("Sean--->", "宠物详情页${entity.toString()}")
+        dataBinding.petInfo = entity
     }
 
     private fun loadError(errorCode: Int) {

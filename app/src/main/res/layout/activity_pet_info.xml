@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="petInfo"
+            type="com.sean.petinfo.api.PetInfoResult" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tool="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_toolBar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{petInfo.petName}"
+                android:textColor="#212121"
+                android:textSize="16sp"
+                tool:text="小猫" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="常见外形："
+            android:textColor="#212121"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:imgSrc="@{petInfo.imageURL[0]}"
+            android:layout_marginRight="5dp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_avatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
+
+        <TextView
+            android:id="@+id/tv_engname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="宠物英文名称："
+            android:textColor="#212121"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_avatar" />
+
+        <TextView
+            android:id="@+id/tv_pet_engname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@{petInfo.petEngName}"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_engname"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_avatar"
+            tool:text="little cat" />
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="宠物描述："
+            android:textColor="#999999"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_engname" />
+
+        <TextView
+            android:id="@+id/tv_petdes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{petInfo.des}"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_des"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pet_engname"
+            tool:text="小猫是一个小猫" />
+
+        <TextView
+            android:id="@+id/tv_easy_dis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="易得病："
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_petdes" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@{petInfo.easyOfDisease}"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_easy_dis"
+            app:layout_constraintTop_toBottomOf="@+id/tv_petdes" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
