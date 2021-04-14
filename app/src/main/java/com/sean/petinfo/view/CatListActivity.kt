@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sean.loginmodule.log.ClogProxy
 import com.sean.petinfo.R
 
 /**
@@ -22,6 +23,7 @@ class CatListActivity : AppCompatActivity() {
 
         initView()
         initData()
+        ClogProxy.logD()  //测试跨模块调用功能
     }
 
     private fun initView() {
