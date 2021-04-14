@@ -4,5 +4,6 @@
 
     <application>
         <activity android:name="view.LoginActivity" />
+        <activity android:name="view.WithParamsActivity"/>
     </application>
 </manifest>

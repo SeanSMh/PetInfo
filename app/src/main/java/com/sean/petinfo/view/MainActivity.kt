@@ -1,18 +1,18 @@
 package com.sean.petinfo.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sean.petinfo.R
+import com.sean.petinfo.RouteConstant
 import com.sean.petinfo.api.PetListInfo
 import com.sean.petinfo.database.PetInfoEntity
 import com.sean.petinfo.viewmodel.PetListViewModel
 import com.sean.petinfo.viewmodel.PetViewModelFactory
-import view.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(this, "点击子项${petItem.petName} + ${petItem.petEngName}", Toast.LENGTH_SHORT).show()
                 //PetInfoActivity.startActivity(this, it.petName, it.petId)
                 //测试跨模块页面调用
-                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                //startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                ARouter.getInstance().build(RouteConstant.paramsActivity).navigation()  //无参数跳转
             }
         }
     }
