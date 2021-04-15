@@ -1,0 +1,13 @@
+//Gradle版本统一管理
+ext {
+    android = [
+            compileSdkVersion : 30,
+            buildToolsVersion : '30.0.2',
+            targetSdkVersion : 30,
+            minSdkVersion : 26
+    ]
+
+    dependencies= [
+           appCompact: 'androix.appcompact:appcompact:1.2.0'
+    ]
+}
