@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: "config.gradle"
 
-buildscript {
-    ext.kotlin_version = "1.4.31"
-    repositories {
+buildscript {    //gradle自己所需要使用的资源
+    ext.kotlin_version = "1.4.31"   //自定义属性
+    repositories {   //gradle自己所需要使用的仓库
         google()
         jcenter()
     }
@@ -16,7 +16,7 @@ buildscript {
     }
 }
 
-allprojects {
+allprojects {   //每个module都需要使用的仓库
     repositories {
         google()
         jcenter()
