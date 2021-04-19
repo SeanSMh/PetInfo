@@ -86,6 +86,7 @@ dependencies {
 
     implementation project(':loginModule')
     implementation project(':routeModule')
+    implementation project(':testModule')
 
     implementation 'com.alibaba:arouter-api:1.5.1'
     kapt 'com.alibaba:arouter-compiler:1.5.1'

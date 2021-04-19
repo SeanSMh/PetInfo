@@ -1,3 +1,4 @@
+include ':testModule'
 include ':routeModule'
 include ':loginModule'
 include ':app'
