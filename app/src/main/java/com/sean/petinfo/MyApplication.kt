@@ -14,5 +14,6 @@ class MyApplication : Application() {
         ARouter.openLog()
         ARouter.openDebug()
         ARouter.init(this)
+        registerActivityLifecycleCallbacks(MyActivityCallbacks())
     }
 }
